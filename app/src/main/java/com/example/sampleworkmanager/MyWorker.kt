@@ -79,8 +79,6 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
                                 mLocation = task.result
                                 Log.d(TAG, "Location : $mLocation")
 
-                                // Create the NotificationChannel, but only on API 26+ because
-                                // the NotificationChannel class is new and not in the support library
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     val name: CharSequence = mContext.getString(R.string.app_name)
                                     val description = mContext.getString(R.string.app_name)
@@ -125,7 +123,7 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
 
                                 // notificationId is a unique int for each notification that you must define
                                 notificationManager.notify(1001, builder.build())
-                                mFusedLocationClient.removeLocationUpdates(mLocationCallback)
+                                mFusedLocationClient!!.removeLocationUpdates(mLocationCallback as LocationCallback)
                             } else {
                                 Log.w(TAG, "Failed to get location.")
                             }
@@ -136,7 +134,6 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
                 try {
                     mFusedLocationClient!!.requestLocationUpdates(mLocationRequest, null)
                 } catch (unlikely: SecurityException) {
-                    //Utils.setRequestingLocationUpdates(this, false);
                     Log.e(TAG, "Lost location permission. Could not request updates. $unlikely")
                 }
             } else {
