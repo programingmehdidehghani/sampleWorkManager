@@ -1,6 +1,5 @@
 package com.example.sampleworkmanager
 
-import android.R
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -103,7 +102,7 @@ class MyWorker(context: Context, workerParams: WorkerParameters) : Worker(contex
                                     mContext,
                                     mContext.getString(R.string.app_name)
                                 )
-                                    .setSmallIcon(R.drawable.ic_menu_mylocation)
+                                    .setSmallIcon(android.R.drawable.ic_menu_mylocation)
                                     .setContentTitle("New Location Update")
                                     .setContentText(
                                         "You are at " + getCompleteAddressString(
